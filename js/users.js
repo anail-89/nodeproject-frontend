@@ -1,7 +1,8 @@
 window.addEventListener('load', () => {
     document.getElementById('userData').addEventListener('click', async(event) => {
-        const response = await fetch("http:/localhost:2021/users");
+        const response = await fetch("http:/localhost:3000/users");
         const data = await response.json();
+        console.log(data);
         if (data.success) {
             const table = document.createElement('table');
             const users = data.data;
@@ -18,7 +19,7 @@ window.addEventListener('load', () => {
                 tr.setAttribute('username', users[i].username);
                 tr.addEventListener('click', async(e) => {
                     const username = e.target.parentElement.getAttribute('username');
-                    const response = await fetch("http:/localhost:2021/users/" + username);
+                    const response = await fetch("http:/localhost:3000/users/" + username);
                     //const response = await fetch("http:/localhost:2021/users/" + username, { method: 'PUT' });
                     const data = await response.json();
                     const userBlock = document.createElement('div');
@@ -46,10 +47,11 @@ window.addEventListener('load', () => {
                     btn.addEventListener('click', async(e) => {
                         const newName = name2.getAttribute('value');
                         const newImg = file.getAttribute('files');
-                        const response = await fetch("http:/localhost:2021/users/" + username, { method: 'PUT', data: { name: newName, path: newImg } });
+                        const response = await fetch("http:/localhost:3000/users/" + username);
                         const data2 = await response.json();
                         console.log(data2);
                     });
+                    //const response = await fetch("http:/localhost:2021/users/" + username, { method: 'PUT', data: { name: newName, path: newImg } });
                     //const response = await fetch("http:/localhost:2021/users/" + username, { method: 'PUT' });
 
                 });
@@ -74,7 +76,7 @@ window.addEventListener('load', () => {
         formData.append('name', name);
         formData.append('image', file);
 
-        const response = await fetch("http:/localhost:2021/users", {
+        const response = await fetch("http:/localhost:3000/users", {
             method: 'POST',
             body: formData
         });
